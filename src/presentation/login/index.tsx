@@ -4,9 +4,9 @@ import { useState } from 'react'
 import HomeBaseLayout from '@/components/Layout/_HomeBaseLayout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { loginUser } from '@/services/login/loginService'
-import { useRouter } from 'next/router'
+import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from "@/hooks/use-toast"
+import { useRouter } from 'next/router'
 
 const LoginContent: NextPage = () => {
   const [username, setUsername] = useState('')
@@ -15,6 +15,8 @@ const LoginContent: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
+
+  const { login } = useAuth()
 
   const { toast } = useToast()
 
@@ -28,12 +30,13 @@ const LoginContent: NextPage = () => {
       username,
       password
     }
-    loginUser(payload).then((response) => {
+    login(payload).then((response) => {
       setIsLoading(false)
       console.log(response)
       toast({
         title: "Usuário logado com sucesso!"
       })
+      router.push('/tasks')
     }).catch((error) => {
       setIsLoading(false)
       console.log(error)

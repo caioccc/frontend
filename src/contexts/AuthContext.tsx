@@ -14,7 +14,8 @@ import React, {
 import {
     LoginFormData,
     LoginResponse,
-    RegisterFormData
+    RegisterFormData,
+    UserData
 } from '../interfaces/common'
 import api from '../services/api'
 
@@ -33,7 +34,7 @@ type AuthProviderProps = {
 type IAuthContext = {
     isAuthenticated: boolean
     loading: boolean
-    user?: UserModel
+    user?: UserData
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setUser: (newUser: any) => void
     visibility: boolean
@@ -80,9 +81,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const loadUserFromCookies = useCallback(async () => {
         try {
             const token = localStorage.getItem('token')
-            if (token) {
+            const userSaved = localStorage.getItem('user')
+            console.log(token)
+            if (token && userSaved) {
                 setLoading(false)
+                setUser(JSON.parse(userSaved))
+                router.push(`/tasks`)
             } else {
+                setLoading(false)
                 localStorage.removeItem('token')
                 localStorage.removeItem('user')
                 localStorage.removeItem('settings')
@@ -100,6 +106,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 
     useEffect(() => {
+        console.log(router.pathname, !isExternalPage(router.pathname))
         if (!isExternalPage(router.pathname)) {
             loadUserFromCookies()
         } else {
