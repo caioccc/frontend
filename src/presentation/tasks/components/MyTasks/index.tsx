@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"; // Enables client-side rendering for this component
 
 // Import necessary hooks and types from React
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 // Import custom UI components from the UI directory
 import { Button } from "@/components/ui/button";
@@ -16,8 +17,8 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/pagination";
-import { getTasks, searchTasks, updateTask, deleteTask } from "@/services/task";
 import { useToast } from "@/hooks/use-toast";
+import { deleteTask, getTasks, searchTasks, updateTask } from "@/services/task";
 
 import {
   AlertDialog,
@@ -29,7 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 import {
   Select,
@@ -39,9 +40,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { getUsers } from "@/services/user";
+} from "@/components/ui/select";
 import { createSharedTask } from "@/services/sharedTask";
+import { getUsers } from "@/services/user";
 
 // Define a TypeScript interface for task data
 interface Task {
@@ -56,11 +57,11 @@ interface Task {
 const TodoList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [page, setPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
   const [nextPageUrl, setNextPage] = useState("");
   const [previousPageUrl, setPreviousPage] = useState("");
 
   const [searchText, setSearchText] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const [loadingSearch, setLoadingSearch] = useState(false);
 
   const [users, setUsers] = useState([]);
@@ -72,10 +73,10 @@ const TodoList = () => {
     setLoadingSearch(true);
     getTasks(page).then((response) => {
       setTasks(response.data.results);
-      setTotalItems(response.data.count);
       setNextPage(response.data.next);
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
+      setIsSearching(false);
     }).catch((error) => {
       console.log(error);
       toast({
@@ -116,7 +117,6 @@ const TodoList = () => {
       const timer = setTimeout(() => {
         searchTasks(searchText).then((response) => {
           setTasks(response.data.results);
-          setTotalItems(response.data.count);
           setNextPage(response.data.next);
           setPreviousPage(response.data.previous);
           setLoadingSearch(false);
@@ -132,33 +132,35 @@ const TodoList = () => {
             ),
           });
         });
-      }, 3000);
+      }, 2000);
 
       return () => clearTimeout(timer);
     } else {
-      setLoadingSearch(true);
-      const timer = setTimeout(() => {
-        getTasks(page).then((response) => {
-          setTasks(response.data.results);
-          setTotalItems(response.data.count);
-          setNextPage(response.data.next);
-          setPreviousPage(response.data.previous);
-          setLoadingSearch(false);
-        }).catch((error) => {
-          console.log(error);
-          setLoadingSearch(false);
-          toast({
-            title: "Erro ao buscar tarefas!",
-            description: (
-              <>
-                <p>Erro ao buscar tarefas!</p>
-              </>
-            ),
+      if (isSearching) {
+        setLoadingSearch(true);
+        const timer = setTimeout(() => {
+          getTasks(page).then((response) => {
+            setTasks(response.data.results);
+            setNextPage(response.data.next);
+            setPreviousPage(response.data.previous);
+            setLoadingSearch(false);
+            setIsSearching(false);
+          }).catch((error) => {
+            console.log(error);
+            setLoadingSearch(false);
+            toast({
+              title: "Erro ao buscar tarefas!",
+              description: (
+                <>
+                  <p>Erro ao buscar tarefas!</p>
+                </>
+              ),
+            });
           });
-        });
-      }, 3000);
+        }, 2000);
 
-      return () => clearTimeout(timer);
+        return () => clearTimeout(timer);
+      }
     }
   }, [searchText]);
 
@@ -168,7 +170,6 @@ const TodoList = () => {
     setLoadingSearch(true);
     getTasks(newPage).then((response) => {
       setTasks(response.data.results);
-      setTotalItems(response.data.count);
       setNextPage(response.data.next);
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
@@ -192,7 +193,6 @@ const TodoList = () => {
     setLoadingSearch(true);
     getTasks(newPage).then((response) => {
       setTasks(response.data.results);
-      setTotalItems(response.data.count);
       setNextPage(response.data.next);
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
@@ -214,7 +214,6 @@ const TodoList = () => {
     updateTask({ ...task, status: !task.status }).then((response) => {
       getTasks(page).then((response) => {
         setTasks(response.data.results);
-        setTotalItems(response.data.count);
         setNextPage(response.data.next);
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
@@ -247,7 +246,6 @@ const TodoList = () => {
     deleteTask(task).then((response) => {
       getTasks(page).then((response) => {
         setTasks(response.data.results);
-        setTotalItems(response.data.count);
         setNextPage(response.data.next);
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
@@ -304,14 +302,16 @@ const TodoList = () => {
     <div className="flex flex-col items-center justify-center w-full gap-4">
       {/* Center the todo list within the screen */}
       <div className="w-full">
-        {/* Input for adding new tasks */}
         <div className="flex items-center mb-4">
           <Input
             type="text"
             placeholder="Buscar tarefa"
             value={searchText}
             onChange={
-              (e: ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value) // Update new task input
+              (e: ChangeEvent<HTMLInputElement>) => {
+                setIsSearching(true);
+                setSearchText(e.target.value);
+              }
             }
             className="flex-1 mr-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
           />
