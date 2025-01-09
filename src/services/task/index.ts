@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "../api";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

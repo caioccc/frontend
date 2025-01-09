@@ -31,6 +31,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { getUsers } from "@/services/user";
+import { createSharedTask } from "@/services/sharedTask";
+
 // Define a TypeScript interface for task data
 interface Task {
   id: number;
@@ -50,6 +62,9 @@ const TodoList = () => {
 
   const [searchText, setSearchText] = useState("");
   const [loadingSearch, setLoadingSearch] = useState(false);
+
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const { toast } = useToast();
 
@@ -73,6 +88,24 @@ const TodoList = () => {
       });
       setLoadingSearch(false);
     });
+
+    getUsers().then((response) => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const users = response.data.filter((u) => u.id !== user.id);
+      setUsers(users);
+      console.log(response.data);
+    }).catch((error) => {
+      console.log(error);
+      toast({
+        title: "Erro ao buscar usuários!",
+        description: (
+          <>
+            <p>Erro ao buscar usuários!</p>
+          </>
+        ),
+      });
+    });
+
   }, []);
 
 
@@ -243,6 +276,29 @@ const TodoList = () => {
     });
   }
 
+  const shareTaskWithUser = (taskId, userId) => {
+    const payload = {
+      task: taskId,
+      user: userId
+    }
+    createSharedTask(payload).then((response) => {
+      console.log(response);
+      toast({
+        title: "Tarefa compartilhada com sucesso!"
+      });
+    }).catch((error) => {
+      console.log(error);
+      toast({
+        title: "Erro ao compartilhar tarefa!",
+        description: (
+          <>
+            <p>Erro ao compartilhar tarefa!</p>
+          </>
+        ),
+      });
+    });
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full gap-4">
@@ -318,6 +374,49 @@ const TodoList = () => {
                             <AlertDialogAction
                               onClick={() => doDeleteTask(task)}
                             >Remover</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost">
+                            <i className="fas fa-share"></i>
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Para quem deseja compartilhar esta tarefa?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              <div className="flex flex-col gap-2">
+                                <Select onValueChange={(value) => setSelectedUser(value)}>
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Selecione um usuário" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectLabel>Usuários</SelectLabel>
+                                      {
+                                        users.map((user) => (
+                                          <SelectItem
+                                            key={user.id}
+                                            value={user.id}
+                                          >
+                                            {user.username}
+                                          </SelectItem>
+                                        ))
+                                      }
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => shareTaskWithUser(task.id, selectedUser)}
+                            >Compartilhar</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
