@@ -48,13 +48,9 @@ api.interceptors.response.use(
     async (error) => {
         if (error.response?.status === HttpStatusCode.Unauthorized) {
             if (ROUTES_WITHOUT_TOKEN.indexOf(window.location.pathname) === -1) {
-                const userToken = await checkToken()
-
-                if (!userToken.data.is_valid) {
-                    localStorage.removeItem('token')
-                    localStorage.removeItem('user')
-                    window.location.href = `/login?redirect=${window.location.pathname}`
-                }
+                localStorage.removeItem('token')
+                localStorage.removeItem("user");
+                window.location.href = `/login?redirect=${window.location.pathname}`;
             }
         }
         if (error.response?.status === HttpStatusCode.Forbidden) {

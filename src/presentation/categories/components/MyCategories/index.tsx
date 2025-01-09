@@ -218,24 +218,20 @@ const CategoriesList = () => {
       {/* Center the todo list within the screen */}
       <div className="w-full">
         {/* Input for adding new tasks */}
-        {
-          categories.length > 0 && (
-            <div className="flex items-center mb-4">
-              <Input
-                type="text"
-                placeholder="Buscar categoria"
-                value={searchText}
-                onChange={
-                  (e: ChangeEvent<HTMLInputElement>) => {
-                    setIsSearching(true);
-                    setSearchText(e.target.value);
-                  }
-                }
-                className="flex-1 mr-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-              />
-            </div>
-          )
-        }
+        <div className="flex items-center mb-4">
+          <Input
+            type="text"
+            placeholder="Buscar categoria"
+            value={searchText}
+            onChange={
+              (e: ChangeEvent<HTMLInputElement>) => {
+                setIsSearching(true);
+                setSearchText(e.target.value);
+              }
+            }
+            className="flex-1 mr-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+          />
+        </div>
         {
           loadingSearch ?
             (

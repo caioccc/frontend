@@ -7,6 +7,11 @@ export const getTasks = async (page) => {
   return response;
 };
 
+export const getTask = async (id: any) => {
+  const response = await api.get(`/api/task/${id}/`);
+  return response;
+}
+
 export const searchTasks = async (name: any) => {
   const response = await api.get("/api/task/?name=" + name);
   return response;

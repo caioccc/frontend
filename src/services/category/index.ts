@@ -7,6 +7,11 @@ export const getCategories = async (page) => {
   return response;
 };
 
+export const getAllCategories = async () => {
+  const response = await api.get("/api/allcategories/");
+  return response;
+}
+
 export const getCategory = async (id: any) => {
   const response = await api.get(`/api/category/${id}/`);
   return response;

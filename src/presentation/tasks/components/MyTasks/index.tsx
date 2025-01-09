@@ -43,13 +43,18 @@ import {
 } from "@/components/ui/select";
 import { createSharedTask } from "@/services/sharedTask";
 import { getUsers } from "@/services/user";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/router";
 
 // Define a TypeScript interface for task data
 interface Task {
   id: number;
   name: string;
   description: string;
-  category: string;
+  category: {
+    id: number;
+    name: string;
+  }
   user: number;
   status: boolean;
 }
@@ -68,6 +73,7 @@ const TodoList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { toast } = useToast();
+  const route = useRouter();
 
   useEffect(() => {
     setLoadingSearch(true);
@@ -211,7 +217,12 @@ const TodoList = () => {
   }
 
   const markTodoAsCompleted = (task) => {
-    updateTask({ ...task, status: !task.status }).then((response) => {
+    const payload = {
+      ...task,
+      status: !task.status,
+      category: task.category?.id
+    }
+    updateTask(payload).then((response) => {
       getTasks(page).then((response) => {
         setTasks(response.data.results);
         setNextPage(response.data.next);
@@ -342,17 +353,20 @@ const TodoList = () => {
                         }}
                       />
                       <span
-                        className={`whitespace-nowrap overflow-hidden text-xs !text-ellipsis flex-1 text-gray-800 dark:text-gray-200 ${task.status
+                        className={`flex items-center whitespace-nowrap overflow-hidden text-xs !text-ellipsis flex-1 gap-2 text-gray-800 dark:text-gray-200 ${task.status
                           ? "line-through text-gray-300 dark:text-gray-200"
                           : ""
                           }`}
                       >
                         {task.name.length > 30 ? task.name.substring(0, 30) + "..." : task.name}
+                        {task.category && <Badge variant="default" className="text-xs">{task.category?.name}</Badge>}
                       </span>
                     </div>
                     <div className="flex items-center">
                       <Button
-                        onClick={() => startEditingTask(task.id, task.text)}
+                        onClick={() => {
+                          route.push(`/tasks/edit/${task.id}`)
+                        }}
                         className="bg-gray-300 hover:bg-gray-400 text-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-gray-200 font-medium py-1 px-2 rounded-md mr-2"
                       >
                         <i className="fas fa-pencil-alt"></i>
