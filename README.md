@@ -122,7 +122,7 @@ Com o docker e docker-compose instalados, basta rodar o comando abaixo na raiz d
   docker-compose up --build
 ```
 
-A aplicação já estará rodando em http://localhost:4200
+A aplicação já estará rodando em http://localhost:3000
 
 ### Segundo caminho
 
