@@ -304,7 +304,6 @@ const SharedTaskList = () => {
                           }`}
                       >
                         {task.task.name.length > 30 ? task.task.name.substring(0, 30) + "..." : task.task.name}
-                        {task.user && <Badge variant="default" className="text-xs">{task.user.username}</Badge>}
                       </span>
                     </div>
                     <div className="flex items-center">

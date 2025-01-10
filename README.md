@@ -148,6 +148,15 @@ Pode-se perceber que o sistema possui uma estrutura de componentes bem definida,
 
 Como estamos trabalhando em um MVP, temos então uma aplicação que atende os requisitos propostos, e que pode ser melhorada e evoluída posteriormente, seguindo uma filosofia Ágil de desenvolvimento, com um desenvolvimento iterativo e incremental, entregando funcionalidades mesmo que com Design ainda primário. Assim, proponho para uma nova versão a continuidade do desenvolvimento implementando esta listagem de acordo com os padrões citados acima, além de novas funcionalidades mais avançadas, como por exemplo, a criação de alertas de compartilhamento de tarefas, tab de notificações de alerta com contador, e a possibilidade de criar tarefas recorrentes, com a possibilidade de escolher a frequência de repetição, entre outras funcionalidades.
 
+
+## Opcionais utilizados: IPSTACK e WHEATHERSTACK
+Esta aplicação faz uso de API externa para buscar informações de localização e clima. Para isso, foi utilizado o IPSTACK e WHEATHERSTACK.
+Ambos os serviços são gratuitos, porém, é necessário criar uma conta para obter a chave de acesso. Para isso, foi criado contas gratuitas em ambos os serviços e as chaves de acesso estão disponíveis no arquivo .env.dev
+
+OBS: As chaves de acesso atualmente estão no código, porém, o ideal é que as chaves de acesso fiquem em um arquivo de "enviroment" e que este arquivo não seja versionado.
+Porém para esta seleção decidi deixar as chaves de acesso no código para facilitar a execução do projeto.
+
+
 ## 📝 Licença
 
 Este projeto esta sobe a licença [MIT](./LICENSE).

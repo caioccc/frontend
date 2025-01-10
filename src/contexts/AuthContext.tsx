@@ -129,6 +129,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         if (data.token) {
             localStorage.setItem('token', data.token)
             localStorage.setItem('user', JSON.stringify(data.user))
+            localStorage.setItem('local_user', JSON.stringify(data.local_user))
             setUser(data.user)
         }
 
@@ -152,6 +153,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUser(undefined)
         localStorage.removeItem('token')
         localStorage.removeItem('user')
+        localStorage.removeItem('local_user')
         destroyCookie(null, 'redirect_route')
     }
 
