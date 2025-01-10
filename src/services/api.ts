@@ -61,11 +61,4 @@ api.interceptors.response.use(
     }
 )
 
-const checkToken = async () => {
-    const req = await api.post('/authentication/login/validate-token/', {
-        token: `${localStorage.getItem('token')}`,
-    })
-    return req
-}
-
 export default api

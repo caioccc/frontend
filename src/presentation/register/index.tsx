@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next'
 import { useState } from 'react'
 
@@ -15,7 +16,6 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage
 } from "@/components/ui/form"
 
@@ -26,9 +26,9 @@ import { z } from "zod"
 
 const FormSchema = z.object({
     username: z.string().min(5, {
-        message: "Nome deve ter no mínimo 5 caracteres",
+        message: "Usuário deve ter no mínimo 5 caracteres",
     }).max(50, {
-        message: "Nome deve ter no máximo 50 caracteres",
+        message: "Usuário deve ter no máximo 50 caracteres",
     }),
     email: z.string().email({
         message: "Email inválido"
@@ -42,15 +42,25 @@ const FormSchema = z.object({
 }).refine(data => data.password === data.confirm_password, {
     message: "Senhas não conferem",
     path: ["confirm_password"]
-});
+}).refine(data => data.email !== data.username, {
+    message: "Email não pode ser igual ao usuário",
+    path: ["email"]
+}).refine(data => data.username !== data.password, {
+    message: "Senha não pode ser igual ao usuário",
+    path: ["password"]
+}).refine(data => data.username === data.username.toLowerCase(), {
+    message: "Usuário deve ser tudo minúsculo",
+    path: ["username"]
+}).refine(data => /^[a-z0-9_]*$/.test(data.username), {
+    message: "Usuário deve ser tudo minúsculo e não pode ter caracteres especiais",
+}).refine(data => !data.username.includes(" "), {
+    message: "Usuário não pode ter espaços",
+    path: ["username"]
+})
+
 
 
 const RegisterContent: NextPage = () => {
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirm_password, setConfirmPassword] = useState('')
-
     const { toast } = useToast()
 
     const { register } = useAuth()
@@ -81,7 +91,7 @@ const RegisterContent: NextPage = () => {
                 title: "Usuário registrado com sucesso!",
                 description: (
                     <>
-                        <p>Seja bem-vindo ao nosso sistema {username}!</p>
+                        <p>Seja bem-vindo ao nosso sistema!</p>
                     </>
                 ),
             })
@@ -118,7 +128,6 @@ const RegisterContent: NextPage = () => {
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
-                                            required
                                             {...field}
                                             label="Usuário"
                                             placeholder="Usuário"
@@ -137,7 +146,6 @@ const RegisterContent: NextPage = () => {
                                         <Input
                                             label="Email"
                                             placeholder="Email"
-                                            required
                                             {...field}
                                         />
                                     </FormControl>
@@ -155,7 +163,6 @@ const RegisterContent: NextPage = () => {
                                             label="Senha"
                                             placeholder="Senha"
                                             type="password"
-                                            required
                                             {...field}
                                         />
                                     </FormControl>
@@ -173,7 +180,6 @@ const RegisterContent: NextPage = () => {
                                             label="Confirmar Senha"
                                             placeholder="Confirmar Senha"
                                             type="password"
-                                            required
                                             {...field}
                                         />
                                     </FormControl>

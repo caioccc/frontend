@@ -13,16 +13,14 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import TodoList from './components/MyTasks'
 import SharedTaskList from './components/MySharedTasks'
+import TodoList from './components/MyTasks'
 
 const TasksContent: NextPage = () => {
     const { logout } = useAuth()
@@ -104,7 +102,7 @@ const TasksContent: NextPage = () => {
                                 </CardHeader>
                                 <CardContent className="space-y-2">
                                     <div className="space-y-1">
-                                       <SharedTaskList />
+                                        <SharedTaskList />
                                     </div>
                                 </CardContent>
                             </Card>
