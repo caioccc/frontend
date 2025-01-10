@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"; // Enables client-side rendering for this component
 
 // Import necessary hooks and types from React
-import { ChangeEvent, use, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 // Import custom UI components from the UI directory
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,6 @@ import {
   PaginationPrevious
 } from "@/components/ui/pagination";
 import { useToast } from "@/hooks/use-toast";
-import { deleteTask, getTasks, updateTask } from "@/services/task";
 
 import {
   AlertDialog,
@@ -32,18 +30,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { createSharedTask, deleteSharedTask, getSharedTasks, searchSharedTasks, updateSharedTask } from "@/services/sharedTask";
-import { useRouter } from "next/router";
+import { deleteSharedTask, getSharedTasks, searchSharedTasks, updateSharedTask } from "@/services/sharedTask";
 
 // Define a TypeScript interface for task data
 
@@ -58,7 +45,6 @@ const SharedTaskList = () => {
   const [loadingSearch, setLoadingSearch] = useState(false);
 
   const { toast } = useToast();
-  const route = useRouter();
 
   useEffect(() => {
     setLoadingSearch(true);
@@ -191,6 +177,7 @@ const SharedTaskList = () => {
       task: task.task.id,
       user: task.user.id
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateSharedTask(payload).then((response) => {
       getSharedTasks(page).then((response) => {
         setTasks(response.data.results);
@@ -223,6 +210,7 @@ const SharedTaskList = () => {
   }
 
   const doDeleteTask = (task) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     deleteSharedTask(task).then((response) => {
       getSharedTasks(page).then((response) => {
         setTasks(response.data.results);

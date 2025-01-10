@@ -97,11 +97,13 @@ const EditTaskForm: NextPage = () => {
     }, [id])
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
         const payload = {
             ...data,
             user: user?.id,
             id: id
+        }
+        if (payload.category == '' || payload.category == 'undefined' || payload.category == 'null') {
+            delete payload.category
         }
         updateTask(payload).then((resp) => {
             toast({
