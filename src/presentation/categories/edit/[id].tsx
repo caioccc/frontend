@@ -84,7 +84,6 @@ const EditCategoryForm: NextPage = () => {
 
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
         const payload = {
             ...data,
             user: user?.id,
@@ -96,7 +95,6 @@ const EditCategoryForm: NextPage = () => {
                 description: "Categoria atualizada com sucesso",
                 status: "success",
             })
-            console.log(resp)
             router.push('/categories')
         }).catch((err) => {
             toast({

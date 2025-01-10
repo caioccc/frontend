@@ -55,7 +55,7 @@ const SharedTaskList = () => {
       setLoadingSearch(false);
       setIsSearching(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao buscar tarefas!",
         description: (
@@ -82,7 +82,7 @@ const SharedTaskList = () => {
           setLoadingSearch(false);
         }).catch((error) => {
           setLoadingSearch(false);
-          console.log(error);
+          console.error(error);
           toast({
             title: "Erro ao buscar tarefas!",
             description: (
@@ -106,7 +106,7 @@ const SharedTaskList = () => {
             setLoadingSearch(false);
             setIsSearching(false);
           }).catch((error) => {
-            console.log(error);
+            console.error(error);
             setLoadingSearch(false);
             toast({
               title: "Erro ao buscar tarefas!",
@@ -134,7 +134,7 @@ const SharedTaskList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar tarefas!",
@@ -157,7 +157,7 @@ const SharedTaskList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar tarefas!",
@@ -185,7 +185,7 @@ const SharedTaskList = () => {
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingSearch(false);
         toast({
           title: "Erro ao buscar tarefas!",
@@ -197,7 +197,7 @@ const SharedTaskList = () => {
         });
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao marcar tarefa como concluída!",
         description: (
@@ -218,7 +218,7 @@ const SharedTaskList = () => {
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingSearch(false);
         toast({
           title: "Erro ao buscar tarefas!",
@@ -230,7 +230,7 @@ const SharedTaskList = () => {
         });
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao deletar tarefa!",
         description: (

@@ -11,15 +11,14 @@ const WheatherBadge = () => {
 
   useEffect(() => {
     api.get('/api/weather/').then(response => {
-      console.log(response.data)
       if (response.data.success === false) {
-        console.log('error', 'Nao foi possivel buscar a previsao do tempo')
+        console.error('error', 'Nao foi possivel buscar a previsao do tempo')
       } else {
         setTemperature(response.data.temperature)
         setSourcePhoto(response.data.source_photo)
       }
     }).catch(error => {
-      console.log('error', 'Nao foi possivel buscar a previsao do tempo', error)
+      console.error('error', 'Nao foi possivel buscar a previsao do tempo', error)
     })
   }, [])
 

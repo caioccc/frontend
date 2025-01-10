@@ -71,18 +71,16 @@ const NewTaskForm: NextPage = () => {
     })
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
         const payload = {
             ...data,
             user: user?.id,
         }
-        createTask(payload).then((resp) => {
+        createTask(payload).then(() => {
             toast({
                 title: "Tarefa criada",
                 description: "Tarefa criada com sucesso",
                 status: "success",
             })
-            console.log(resp)
             router.push('/tasks')
         }).catch((err) => {
             toast({

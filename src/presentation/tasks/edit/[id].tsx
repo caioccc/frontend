@@ -78,11 +78,9 @@ const EditTaskForm: NextPage = () => {
         if (id) {
             setIsLoading(true)
             getTask(id).then((resp) => {
-                console.log('view task', resp.data)
                 setTask(resp.data)
                 form.setValue('name', resp.data.name)
                 form.setValue('category', `${resp.data.category}`)
-                console.log('form', form.getValues())
                 setIsLoading(false)
             }).catch((err) => {
                 toast({
@@ -111,7 +109,6 @@ const EditTaskForm: NextPage = () => {
                 description: "Tarefa atualizada com sucesso",
                 status: "success",
             })
-            console.log(resp)
             router.push('/tasks')
         }).catch((err) => {
             toast({

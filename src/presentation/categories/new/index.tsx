@@ -57,18 +57,16 @@ const NewCategoryForm: NextPage = () => {
     })
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
         const payload = {
             ...data,
             user: user?.id
         }
-        createCategory(payload).then((resp) => {
+        createCategory(payload).then(() => {
             toast({
                 title: "Categoria criada",
                 description: "Categoria criada com sucesso",
                 status: "success",
             })
-            console.log(resp)
             router.push('/categories')
         }).catch((err) => {
             toast({

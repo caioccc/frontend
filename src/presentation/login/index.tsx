@@ -61,21 +61,19 @@ const LoginContent: NextPage = () => {
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
     const payload = {
       ...data,
     }
     setIsLoading(true)
-    login(payload).then((response) => {
+    login(payload).then(() => {
       setIsLoading(false)
-      console.log(response)
       toast({
         title: "Usuário logado com sucesso!"
       })
       router.push('/tasks')
     }).catch((error) => {
       setIsLoading(false)
-      console.log(error)
+      console.error(error)
       toast({
         title: "Erro ao logar!",
         description: (

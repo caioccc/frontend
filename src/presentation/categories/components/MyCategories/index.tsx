@@ -66,7 +66,7 @@ const CategoriesList = () => {
       setLoadingSearch(false);
       setIsSearching(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao buscar categorias!",
         description: (
@@ -92,7 +92,7 @@ const CategoriesList = () => {
           setLoadingSearch(false);
         }).catch((error) => {
           setLoadingSearch(false);
-          console.log(error);
+          console.error(error);
           toast({
             title: "Erro ao buscar categorias!",
             description: (
@@ -116,7 +116,7 @@ const CategoriesList = () => {
             setLoadingSearch(false);
             setIsSearching(false);
           }).catch((error) => {
-            console.log(error);
+            console.error(error);
             setLoadingSearch(false);
             toast({
               title: "Erro ao buscar categorias!",
@@ -144,7 +144,7 @@ const CategoriesList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar categorias!",
@@ -167,7 +167,7 @@ const CategoriesList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar categorias!",
@@ -189,7 +189,7 @@ const CategoriesList = () => {
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingSearch(false);
         toast({
           title: "Erro ao buscar categorias!",
@@ -201,7 +201,7 @@ const CategoriesList = () => {
         });
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao remover categoria!",
         description: (

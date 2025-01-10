@@ -80,7 +80,6 @@ const RegisterContent: NextPage = () => {
     })
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data)
         const payload = {
             ...data,
         }
@@ -98,7 +97,7 @@ const RegisterContent: NextPage = () => {
             router.push('/login')
         }).catch((error) => {
             setIsLoading(false)
-            console.log(error)
+            console.error(error)
             toast({
                 title: "Erro ao registrar usuário",
                 description: "Erro ao registrar usuário",

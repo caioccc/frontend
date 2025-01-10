@@ -84,7 +84,7 @@ const TodoList = () => {
       setLoadingSearch(false);
       setIsSearching(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao buscar tarefas!",
         description: (
@@ -100,9 +100,8 @@ const TodoList = () => {
       const user = JSON.parse(localStorage.getItem('user'));
       const users = response.data.filter((u) => u.id !== user.id);
       setUsers(users);
-      console.log(response.data);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao buscar usuários!",
         description: (
@@ -128,7 +127,7 @@ const TodoList = () => {
           setLoadingSearch(false);
         }).catch((error) => {
           setLoadingSearch(false);
-          console.log(error);
+          console.error(error);
           toast({
             title: "Erro ao buscar tarefas!",
             description: (
@@ -152,7 +151,7 @@ const TodoList = () => {
             setLoadingSearch(false);
             setIsSearching(false);
           }).catch((error) => {
-            console.log(error);
+            console.error(error);
             setLoadingSearch(false);
             toast({
               title: "Erro ao buscar tarefas!",
@@ -180,7 +179,7 @@ const TodoList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar tarefas!",
@@ -203,7 +202,7 @@ const TodoList = () => {
       setPreviousPage(response.data.previous);
       setLoadingSearch(false);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       setLoadingSearch(false);
       toast({
         title: "Erro ao buscar tarefas!",
@@ -229,7 +228,7 @@ const TodoList = () => {
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingSearch(false);
         toast({
           title: "Erro ao buscar tarefas!",
@@ -241,7 +240,7 @@ const TodoList = () => {
         });
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao marcar tarefa como concluída!",
         description: (
@@ -261,7 +260,7 @@ const TodoList = () => {
         setPreviousPage(response.data.previous);
         setLoadingSearch(false);
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
         setLoadingSearch(false);
         toast({
           title: "Erro ao buscar tarefas!",
@@ -273,7 +272,7 @@ const TodoList = () => {
         });
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao deletar tarefa!",
         description: (
@@ -291,12 +290,11 @@ const TodoList = () => {
       user: userId
     }
     createSharedTask(payload).then((response) => {
-      console.log(response);
       toast({
         title: "Tarefa compartilhada com sucesso!"
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       toast({
         title: "Erro ao compartilhar tarefa!",
         description: (

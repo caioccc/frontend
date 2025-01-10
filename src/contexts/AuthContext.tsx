@@ -82,7 +82,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             const token = localStorage.getItem('token')
             const userSaved = localStorage.getItem('user')
-            console.log(token)
             if (token && userSaved) {
                 setLoading(false)
                 setUser(JSON.parse(userSaved))
@@ -106,7 +105,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 
     useEffect(() => {
-        console.log(router.pathname, !isExternalPage(router.pathname))
         if (!isExternalPage(router.pathname)) {
             loadUserFromCookies()
         } else {
