@@ -9,6 +9,42 @@ import { useRouter } from 'next/router'
 
 import { useToast } from "@/hooks/use-toast"
 
+
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from "@/components/ui/form"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+
+const FormSchema = z.object({
+    username: z.string().min(5, {
+        message: "Nome deve ter no mínimo 5 caracteres",
+    }).max(50, {
+        message: "Nome deve ter no máximo 50 caracteres",
+    }),
+    email: z.string().email({
+        message: "Email inválido"
+    }),
+    password: z.string().min(6, {
+        message: "Senha deve ter no mínimo 6 caracteres",
+    }),
+    confirm_password: z.string().min(6, {
+        message: "Senha deve ter no mínimo 6 caracteres",
+    })
+}).refine(data => data.password === data.confirm_password, {
+    message: "Senhas não conferem",
+    path: ["confirm_password"]
+});
+
+
 const RegisterContent: NextPage = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -23,25 +59,24 @@ const RegisterContent: NextPage = () => {
 
     const router = useRouter()
 
-    const doRegister = () => {
-        if (!username || !email || !password || !confirm_password) {
-            setIsLoading(false)
-            return
-        }
-        if (confirm_password !== password) {
-            setIsLoading(false)
-            return
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+            username: "",
+            email: "",
+            password: "",
+            confirm_password: "",
+        },
+    })
+
+    function onSubmit(data: z.infer<typeof FormSchema>) {
+        console.log(data)
+        const payload = {
+            ...data,
         }
         setIsLoading(true)
-        const payload = {
-            username,
-            password,
-            email,
-            confirm_password
-        }
-        register(payload).then((response) => {
+        register(payload).then((resp) => {
             setIsLoading(false)
-            console.log(response)
             toast({
                 title: "Usuário registrado com sucesso!",
                 description: (
@@ -50,10 +85,15 @@ const RegisterContent: NextPage = () => {
                     </>
                 ),
             })
-            goToLogin()
+            router.push('/login')
         }).catch((error) => {
             setIsLoading(false)
             console.log(error)
+            toast({
+                title: "Erro ao registrar usuário",
+                description: "Erro ao registrar usuário",
+                status: "error",
+            })
         })
 
     }
@@ -67,73 +107,117 @@ const RegisterContent: NextPage = () => {
         <HomeBaseLayout
             title="Registrar"
         >
-            <div className='flex flex-col items-center justify-center h-full gap-4'>
-                <Input
-                    label="Usuário"
-                    placeholder="Usuário"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <Input
-                    label="Email"
-                    placeholder="Email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <Input
-                    label="Senha"
-                    placeholder="Senha"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <Input
-                    label="Confirmar Senha"
-                    placeholder="Confirmar Senha"
-                    type="password"
-                    value={confirm_password}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                <div className='flex flex-row items-center justify-center gap-4'>
-                    <Button
-                        type="submit"
-                        className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
-                        onClick={doRegister}
-                        disabled={isLoading}
-                    >
-                        {isLoading ?
-                            (
-                                <>
-                                    <i className="fas fa-spinner fa-spin"></i>
-                                    Carregando...
-                                </>
-                            )
-                            :
-                            (
-                                <>
-                                    <i className="fas fa-user-plus"></i>
-                                    Registrar
-                                </>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full gap-4">
+                    <div className='flex flex-col items-center justify-center h-full gap-4'>
+                        <FormField
+                            control={form.control}
+                            name="username"
+                            className="w-full"
+                            render={({ field }) => (
+                                <FormItem className='w-full'>
+                                    <FormControl>
+                                        <Input
+                                            required
+                                            {...field}
+                                            label="Usuário"
+                                            placeholder="Usuário"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                             )}
-                    </Button>
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem className='w-full'>
+                                    <FormControl>
+                                        <Input
+                                            label="Email"
+                                            placeholder="Email"
+                                            required
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem className='w-full'>
+                                    <FormControl>
+                                        <Input
+                                            label="Senha"
+                                            placeholder="Senha"
+                                            type="password"
+                                            required
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirm_password"
+                            render={({ field }) => (
+                                <FormItem className='w-full'>
+                                    <FormControl>
+                                        <Input
+                                            label="Confirmar Senha"
+                                            placeholder="Confirmar Senha"
+                                            type="password"
+                                            required
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className='flex flex-row items-center justify-center gap-4'>
+                        <Button
+                            type="submit"
+                            className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                            disabled={isLoading}
+                        >
+                            {isLoading ?
+                                (
+                                    <>
+                                        <i className="fas fa-spinner fa-spin"></i>
+                                        Carregando...
+                                    </>
+                                )
+                                :
+                                (
+                                    <>
+                                        <i className="fas fa-user-plus"></i>
+                                        Registrar
+                                    </>
+                                )}
+                        </Button>
 
-                    <Button
-                        type="button"
-                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
-                        onClick={goToLogin}
-                    >
-                        <i className="fas fa-sign-in-alt"></i>
-                        Ir para Login
-                    </Button>
-                </div>
+                        <Button
+                            type="button"
+                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
+                            onClick={goToLogin}
+                        >
+                            <i className="fas fa-sign-in-alt"></i>
+                            Ir para Login
+                        </Button>
+                    </div>
 
-            </div>
+                </form>
+            </Form>
+
+
         </HomeBaseLayout>
 
     )

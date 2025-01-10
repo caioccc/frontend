@@ -22,6 +22,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import TodoList from './components/MyTasks'
+import SharedTaskList from './components/MySharedTasks'
 
 const TasksContent: NextPage = () => {
     const { logout } = useAuth()
@@ -103,8 +104,7 @@ const TasksContent: NextPage = () => {
                                 </CardHeader>
                                 <CardContent className="space-y-2">
                                     <div className="space-y-1">
-                                        <Label htmlFor="current">Current password</Label>
-                                        <Input id="current" type="password" />
+                                       <SharedTaskList />
                                     </div>
                                 </CardContent>
                             </Card>
