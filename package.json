@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "env-cmd -f environments/.env.dev next dev",
+    "dev": "env-cmd -f environments/.env.prod next dev",
     "build": "env-cmd -f environments/.env.dev next build",
     "build:sandbox": "env-cmd -f environments/.env.sandbox next build",
     "build:prod": "env-cmd -f environments/.env.prod next build",
