@@ -123,13 +123,15 @@ const NewCategoryForm: NextPage = () => {
                                                         <FormItem>
                                                             <FormLabel>Nome</FormLabel>
                                                             <FormControl>
-                                                                <Input placeholder="Insira o nome da nova categoria" {...field} />
+                                                                <Input placeholder="Insira o nome da nova categoria" {...field}
+                                                                    className="name"
+                                                                />
                                                             </FormControl>
                                                             <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button type="submit">Criar</Button>
+                                                <Button className='test-button' type="submit">Criar</Button>
                                             </form>
                                         </Form>
                                     </div>

@@ -34,7 +34,7 @@ const CategoriesContent: NextPage = () => {
                 <div className='flex flex-row gap-4 justify-between w-full'>
                     <Button
                         type="button"
-                        className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                        className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-see-tasks"
                         onClick={() => router.push('/tasks')}
                         disabled={isLoading}
                     >
@@ -68,7 +68,7 @@ const CategoriesContent: NextPage = () => {
                                         <div className='flex flex-row'>
                                             <Button
                                                 type="button"
-                                                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                                                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-add-category"
                                                 onClick={() => router.push('/categories/new')}
                                                 disabled={isLoading}
                                             >

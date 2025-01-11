@@ -151,7 +151,8 @@ const NewTaskForm: NextPage = () => {
                                                         <FormItem>
                                                             <FormLabel>Nome</FormLabel>
                                                             <FormControl>
-                                                                <Input placeholder="Insira a nova tarefa" {...field} />
+                                                                <Input placeholder="Insira a nova tarefa" {...field}
+                                                                    className='name' />
                                                             </FormControl>
                                                             <FormMessage />
                                                         </FormItem>
@@ -183,7 +184,7 @@ const NewTaskForm: NextPage = () => {
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button type="submit">Criar</Button>
+                                                <Button type="submit" className='test-button'>Criar</Button>
                                             </form>
                                         </Form>
                                     </div>

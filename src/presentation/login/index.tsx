@@ -111,6 +111,7 @@ const LoginContent: NextPage = () => {
                       {...field}
                       label="Usuário"
                       placeholder="Usuário"
+                      className="username"
                     />
                   </FormControl>
                   <FormMessage />
@@ -126,6 +127,7 @@ const LoginContent: NextPage = () => {
                     <Input
                       label="Senha"
                       placeholder="Senha"
+                      className='password'
                       type="password"
                       {...field}
                     />
@@ -137,7 +139,7 @@ const LoginContent: NextPage = () => {
             <div className='flex flex-row items-center justify-center gap-4'>
               <Button
                 type="submit"
-                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-button"
                 disabled={isLoading}
               >
                 {isLoading ?
@@ -158,7 +160,7 @@ const LoginContent: NextPage = () => {
 
               <Button
                 type="button"
-                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md test-button-register"
                 onClick={goToRegister}
               >
                 <i className="fas fa-user-plus"></i>

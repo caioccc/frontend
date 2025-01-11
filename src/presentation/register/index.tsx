@@ -122,13 +122,14 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="username"
-                            className="w-full"
+                            className="w-full username"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
                                             {...field}
                                             label="Usuário"
+                                            className="username"
                                             placeholder="Usuário"
                                         />
                                     </FormControl>
@@ -139,11 +140,13 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="email"
+                            className="email"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
                                             label="Email"
+                                            className="email"
                                             placeholder="Email"
                                             {...field}
                                         />
@@ -155,12 +158,14 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="password"
+                            className="password"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
                                             label="Senha"
                                             placeholder="Senha"
+                                            className="password"
                                             type="password"
                                             {...field}
                                         />
@@ -178,6 +183,7 @@ const RegisterContent: NextPage = () => {
                                         <Input
                                             label="Confirmar Senha"
                                             placeholder="Confirmar Senha"
+                                            className='confirmpassword'
                                             type="password"
                                             {...field}
                                         />
@@ -190,7 +196,7 @@ const RegisterContent: NextPage = () => {
                     <div className='flex flex-row items-center justify-center gap-4'>
                         <Button
                             type="submit"
-                            className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                            className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-button"
                             disabled={isLoading}
                         >
                             {isLoading ?
@@ -211,7 +217,7 @@ const RegisterContent: NextPage = () => {
 
                         <Button
                             type="button"
-                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
+                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md test-button-login"
                             onClick={goToLogin}
                         >
                             <i className="fas fa-sign-in-alt"></i>

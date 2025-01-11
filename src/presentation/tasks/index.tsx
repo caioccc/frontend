@@ -37,7 +37,7 @@ const TasksContent: NextPage = () => {
                 <div className='flex flex-row gap-4 justify-between w-full'>
                     <Button
                         type="button"
-                        className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                        className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-see-categories"
                         onClick={() => router.push('/categories')}
                         disabled={isLoading}
                     >
@@ -46,7 +46,7 @@ const TasksContent: NextPage = () => {
                     </Button>
                     <Button
                         type="button"
-                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
+                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md test-logout"
                         onClick={() => {
                             setIsLoading(true)
                             logout()

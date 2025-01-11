@@ -1,0 +1,67 @@
+{
+  "count": 12,
+  "next": "http://testserver/api/task/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 12,
+      "name": "test task 11",
+      "description": null,
+      "category": {
+        "id": 1,
+        "name": "test category",
+        "user": 1
+      },
+      "user": 1,
+      "status": false
+    },
+    {
+      "id": 11,
+      "name": "test task 10",
+      "description": null,
+      "category": {
+        "id": 1,
+        "name": "test category",
+        "user": 1
+      },
+      "user": 1,
+      "status": false
+    },
+    {
+      "id": 10,
+      "name": "test task 9",
+      "description": null,
+      "category": {
+        "id": 1,
+        "name": "test category",
+        "user": 1
+      },
+      "user": 1,
+      "status": false
+    },
+    {
+      "id": 9,
+      "name": "test task 8",
+      "description": null,
+      "category": {
+        "id": 1,
+        "name": "test category",
+        "user": 1
+      },
+      "user": 1,
+      "status": false
+    },
+    {
+      "id": 8,
+      "name": "test task 7",
+      "description": null,
+      "category": {
+        "id": 1,
+        "name": "test category",
+        "user": 1
+      },
+      "user": 1,
+      "status": false
+    }
+  ]
+}
