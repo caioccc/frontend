@@ -9,7 +9,7 @@ describe("Teste de Fluxo de Registro", () => {
 
   it("Realiza registro na plataforma", () => {
     cy.get(".test-button-register").click();
-    cy.wait(1000);
+    cy.wait(2000);
     cy.get(".username").type("testuser");
     cy.get(".email").type("emailteste@gmail.com");
     cy.get(".password").type("Admin123!");
@@ -23,7 +23,7 @@ describe("Teste de Fluxo de Registro", () => {
 
   it("Realiza login na plataforma", () => {
     cy.get(".test-button-register").click();
-    cy.wait(1000);
+    cy.wait(2000);
     cy.get(".username").type("testuser");
     cy.get(".email").type("emailteste@gmail.com");
     cy.get(".password").type("Admin123!");

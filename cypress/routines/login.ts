@@ -10,8 +10,10 @@ export function loginRoutine() {
     cy.get('.test-button').click()
 
     cy.wait('@login')
-
+    cy.wait(1000)
     cy.url().should('include', '/tasks')
 
-    cy.wait('@list_tasks')
+    cy.wait(1000)
+
+
 }

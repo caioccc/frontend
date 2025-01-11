@@ -79,17 +79,13 @@ Para rodar os testes implementados, é necessário que o BACKEND esteja ligado, 
 possam requisitar a API corretamente. Para isto, basta executar o comando abaixo:
 
 ```bash
-  npm run e2e
+  npm run cypress
 ```
 
 Uma suíte com os testes irá rodar. Você pode verificar o resultado no terminal.
 
 Se você tiver conhecimento de Cypress, é possível acessar a GUI do Cypress para visualizar os testes e rodá-los
-individualmente. Para isto, basta executar o comando abaixo:
-
-```bash
-  npm run e2e-gui
-```
+individualmente.
 
 ## Qualidade de código
 
@@ -119,7 +115,7 @@ bem fáceis. Assim, basta seguir os passos abaixo:
 Com o docker e docker-compose instalados, basta rodar o comando abaixo na raiz do projeto frontend:
 
 ```bash
-  docker-compose up --build
+  docker-compose up -d --build
 ```
 
 A aplicação já estará rodando em http://localhost:3000
@@ -155,6 +151,32 @@ Ambos os serviços são gratuitos, porém, é necessário criar uma conta para o
 
 OBS: As chaves de acesso atualmente estão no código, porém, o ideal é que as chaves de acesso fiquem em um arquivo de "enviroment" e que este arquivo não seja versionado.
 Porém para esta seleção decidi deixar as chaves de acesso no código para facilitar a execução do projeto.
+
+OBS 2: A maneira como foi implementada no backend a busca de informações de localização e clima, não é a mais adequada, pois o IP que está sendo checado é o endereço de IP do servidor, e não o endereço de IP do usuário. Para isso, seria necessário implementar um serviço no frontend que fizesse a busca do IP do usuário e enviasse para o backend. Porém, para este MVP, foi implementado desta maneira.
+
+
+## Deploy
+Para o deploy desta aplicação frontend utilizamos o Netlify, que é uma plataforma de hospedagem de aplicativos que
+oferece uma infraestrutura de nuvem gerenciada e automatizada para desenvolvedores.
+Com isso, implementei um sistema de CI/CD para que a cada push no repositório do Github, o Netlify faça o deploy
+automático da aplicação. Com isso, todo o push realizado na branch "master", faz com que a aplicação seja atualizada
+automaticamente.
+
+Para isto ser possível, foi necessário configurar na plataforma para reconhecer que é uma aplicação com NextJS e indicar o comando "npm run build:prod", que é responsável por fazer a execução de todos
+os comandos necessários durante o deploy da aplicação.
+A configuração do deploy foi feita diretamente no site do Netlify, onde foi configurado o repositório do Github, a
+branch a ser monitorada e o arquivo build.sh a ser executado.
+
+Para acessar a aplicação, recomendamos acessar o link do backend primeiro, devido a necessidade de conexão com o backend para o funcionamento correto da aplicação e porque as instâncias gratuitas são
+desativadas após períodos de inatividade.
+
+Portanto, acesse:
+
+https://backend-nea0.onrender.com/admin
+
+Assim que visualizar o formulário de login, acesse o frontend:
+
+https://clinquant-choux-257189.netlify.app/
 
 
 ## 📝 Licença

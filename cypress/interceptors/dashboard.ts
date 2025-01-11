@@ -12,16 +12,6 @@ export const defaultInterceptors = () => {
 
     cy.intercept(
         'POST',
-        'http://localhost:8000/api/auth/login/',
-        (req) => {
-            req.reply({
-                statusCode: 401
-            })
-        }
-    ).as('login_invalid')
-
-    cy.intercept(
-        'POST',
         'http://localhost:8000/api/auth/register/',
         (req) => {
             req.reply({
