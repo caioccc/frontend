@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -61,7 +62,7 @@ const EditTaskForm: NextPage = () => {
     const { toast } = useToast();
 
     const [isLoading, setIsLoading] = useState(false)
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState<any[]>([])
 
     const [id, setId] = useState(router.query.id as string)
     const [task, setTask] = useState(null)
@@ -85,8 +86,7 @@ const EditTaskForm: NextPage = () => {
             }).catch((err) => {
                 toast({
                     title: "Erro ao buscar tarefa",
-                    description: "Erro ao buscar tarefa",
-                    status: "error",
+                    description: "Erro ao buscar tarefa"
                 })
                 console.error(err)
                 setIsLoading(false)
@@ -106,15 +106,13 @@ const EditTaskForm: NextPage = () => {
         updateTask(payload).then((resp) => {
             toast({
                 title: "Tarefa atualizada",
-                description: "Tarefa atualizada com sucesso",
-                status: "success",
+                description: "Tarefa atualizada com sucesso"
             })
             router.push('/tasks')
         }).catch((err) => {
             toast({
                 title: "Erro ao editar tarefa",
-                description: "Erro ao editar tarefa",
-                status: "error",
+                description: "Erro ao editar tarefa"
             })
             console.error(err)
         });
@@ -127,8 +125,7 @@ const EditTaskForm: NextPage = () => {
             console.error(err)
             toast({
                 title: "Erro ao buscar categorias",
-                description: "Erro ao buscar categorias",
-                status: "error",
+                description: "Erro ao buscar categorias"
             })
         })
     }, [])

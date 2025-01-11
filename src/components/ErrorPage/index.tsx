@@ -17,15 +17,11 @@ const ErrorPage = ({ title, message, ...props }: ErrorPageProps) => {
                 <div className="flex flex-col gap-12 max-w-[17rem] z-10 md:mt-20 sm:mt-10">
                     <div className="flex flex-col gap-4">
                         <h1
-                            size="md"
-                            color="neutral.low.pure"
                             className="test_title_error_page w-[70%]"
                         >
                             {title}
                         </h1>
                         <p
-                            size="xxs"
-                            color="neutral.low.medium"
                             className="test_message_error_page"
                         >
                             {message}
@@ -33,11 +29,10 @@ const ErrorPage = ({ title, message, ...props }: ErrorPageProps) => {
                     </div>
 
                     <Button
-                        variant="primary"
-                        label={'Voltar para o início'}
-                        onClick={() => router.push('/dashboard')}
-                        testId="test_button_error_page"
-                    />
+                        onClick={() => router.push('/')}
+                    >
+                        Voltar para a página inicial
+                    </Button>
                 </div>
 
             </div>

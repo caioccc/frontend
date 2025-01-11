@@ -35,12 +35,8 @@ type IAuthContext = {
     isAuthenticated: boolean
     loading: boolean
     user?: UserData
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setUser: (newUser: any) => void
-    visibility: boolean
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     login: (body: LoginFormData) => Promise<any>
-    settings: RegisterPendingData | null
     logout: () => void
     register: (body: RegisterFormData) => Promise<any>
 }
@@ -134,12 +130,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return data
     }
 
-    const register = async (body: LoginResponse) => {
+    const register = async (body: RegisterFormData) => {
         const config = {
             headers: {},
         } as AxiosRequestConfig
 
-        const { data } = await api.post<RegisterResponse>(
+        const { data } = await api.post(
             '/api/auth/register/',
             body,
             config
@@ -164,7 +160,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 login,
                 loading,
                 logout,
-                isExternalPage,
                 register,
             }}
         >
@@ -181,7 +176,7 @@ type ProtetedRouteProps = {
 
 export const ProtectedRoute = ({
     children,
-}: ProtetedRouteProps): JSX.Element => {
+}: ProtetedRouteProps) => {
     const router = useRouter()
     const { isAuthenticated, loading } = useAuth()
 

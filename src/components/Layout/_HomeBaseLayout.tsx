@@ -2,8 +2,9 @@ import React from 'react'
 import WheatherBadge from '../WheatherBadge'
 import IpStackComponent from '../IpStackComponent'
 
-interface HomeBaseLayoutProps extends PageHeaderProps {
+interface HomeBaseLayoutProps {
     children: React.ReactNode
+    title: string
 }
 
 const HomeBaseLayout = ({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"; // Enables client-side rendering for this component
 
@@ -44,7 +45,7 @@ interface Task {
 }
 
 const CategoriesList = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [nextPageUrl, setNextPage] = useState("");
   const [previousPageUrl, setPreviousPage] = useState("");
@@ -181,7 +182,8 @@ const CategoriesList = () => {
   }
 
 
-  const doDeleteCategory = (category) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doDeleteCategory = (category: any) => {
     deleteCategory(category).then((response) => {
       getCategories(page).then((response) => {
         setCategories(response.data.results);

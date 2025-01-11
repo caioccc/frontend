@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type PaginationResponse = {
     pages: number
     total: number
@@ -50,6 +51,7 @@ export type UserData = {
 export type LoginResponse = {
     user: UserData
     token: string
+    local_user: any
 }
 
 export interface LoginFormData {

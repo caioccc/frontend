@@ -64,15 +64,13 @@ const NewCategoryForm: NextPage = () => {
         createCategory(payload).then(() => {
             toast({
                 title: "Categoria criada",
-                description: "Categoria criada com sucesso",
-                status: "success",
+                description: "Categoria criada com sucesso"
             })
             router.push('/categories')
         }).catch((err) => {
             toast({
                 title: "Erro ao criar categoria",
-                description: "Erro ao criar categoria",
-                status: "error",
+                description: "Erro ao criar categoria"
             })
             console.error(err)
         });

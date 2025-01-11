@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 
@@ -58,7 +59,7 @@ const NewTaskForm: NextPage = () => {
     const { toast } = useToast();
 
     const [isLoading, setIsLoading] = useState(false)
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState<any[]>([])
 
     const router = useRouter()
 
@@ -78,15 +79,13 @@ const NewTaskForm: NextPage = () => {
         createTask(payload).then(() => {
             toast({
                 title: "Tarefa criada",
-                description: "Tarefa criada com sucesso",
-                status: "success",
+                description: "Tarefa criada com sucesso"
             })
             router.push('/tasks')
         }).catch((err) => {
             toast({
                 title: "Erro ao criar tarefa",
-                description: "Erro ao criar tarefa",
-                status: "error",
+                description: "Erro ao criar tarefa"
             })
             console.error(err)
         });
@@ -99,8 +98,7 @@ const NewTaskForm: NextPage = () => {
             console.error(err)
             toast({
                 title: "Erro ao buscar categorias",
-                description: "Erro ao buscar categorias",
-                status: "error",
+                description: "Erro ao buscar categorias"
             })
         })
     }, [])

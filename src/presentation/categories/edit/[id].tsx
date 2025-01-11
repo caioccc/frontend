@@ -73,8 +73,7 @@ const EditCategoryForm: NextPage = () => {
             }).catch((err) => {
                 toast({
                     title: "Erro ao buscar categoria",
-                    description: "Erro ao buscar categoria",
-                    status: "error",
+                    description: "Erro ao buscar categoria"
                 })
                 console.error(err)
                 setIsLoading(false)
@@ -92,15 +91,13 @@ const EditCategoryForm: NextPage = () => {
         updateCategory(payload).then((resp) => {
             toast({
                 title: "Categoria atualizada",
-                description: "Categoria atualizada com sucesso",
-                status: "success",
+                description: "Categoria atualizada com sucesso"
             })
             router.push('/categories')
         }).catch((err) => {
             toast({
                 title: "Erro ao editar categoria",
-                description: "Erro ao editar categoria",
-                status: "error",
+                description: "Erro ao editar categoria"
             })
             console.error(err)
         });

@@ -75,7 +75,7 @@ const TasksContent: NextPage = () => {
                                         <div className='flex flex-row'>
                                             <Button
                                                 type="button"
-                                                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md"
+                                                className="bg-black hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-md test-add-task"
                                                 onClick={() => router.push('/tasks/new')}
                                                 disabled={isLoading}
                                             >

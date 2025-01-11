@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"; // Enables client-side rendering for this component
 
@@ -69,8 +70,8 @@ const TodoList = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [loadingSearch, setLoadingSearch] = useState(false);
 
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [users, setUsers] = useState<any[]>([]);
+  const [selectedUser, setSelectedUser] = useState<any>(null);
 
   const { toast } = useToast();
   const route = useRouter();
@@ -97,9 +98,14 @@ const TodoList = () => {
     });
 
     getUsers().then((response) => {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const users = response.data.filter((u) => u.id !== user.id);
-      setUsers(users);
+      const userLogged = localStorage.getItem('user')
+      if (!userLogged) {
+        return;
+      } else {
+        const user = JSON.parse(userLogged);
+        const users = response.data.filter((u) => u.id !== user.id);
+        setUsers(users);
+      }
     }).catch((error) => {
       console.error(error);
       toast({
@@ -401,7 +407,9 @@ const TodoList = () => {
                             <AlertDialogTitle>Para quem deseja compartilhar esta tarefa?</AlertDialogTitle>
                             <AlertDialogDescription>
                               <div className="flex flex-col gap-2">
-                                <Select onValueChange={(value) => setSelectedUser(value)}>
+                                <Select onValueChange={(value) => {
+                                  setSelectedUser(value);
+                                }}>
                                   <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Selecione um usuário" />
                                   </SelectTrigger>

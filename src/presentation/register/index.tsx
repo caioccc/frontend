@@ -100,8 +100,7 @@ const RegisterContent: NextPage = () => {
             console.error(error)
             toast({
                 title: "Erro ao registrar usuário",
-                description: "Erro ao registrar usuário",
-                status: "error",
+                description: "Erro ao registrar usuário"
             })
         })
 
@@ -122,13 +121,11 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="username"
-                            className="w-full username"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
                                             {...field}
-                                            label="Usuário"
                                             className="username"
                                             placeholder="Usuário"
                                         />
@@ -140,12 +137,10 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="email"
-                            className="email"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
-                                            label="Email"
                                             className="email"
                                             placeholder="Email"
                                             {...field}
@@ -158,12 +153,10 @@ const RegisterContent: NextPage = () => {
                         <FormField
                             control={form.control}
                             name="password"
-                            className="password"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
-                                            label="Senha"
                                             placeholder="Senha"
                                             className="password"
                                             type="password"
@@ -181,7 +174,6 @@ const RegisterContent: NextPage = () => {
                                 <FormItem className='w-full'>
                                     <FormControl>
                                         <Input
-                                            label="Confirmar Senha"
                                             placeholder="Confirmar Senha"
                                             className='confirmpassword'
                                             type="password"

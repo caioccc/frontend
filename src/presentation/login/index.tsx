@@ -103,13 +103,11 @@ const LoginContent: NextPage = () => {
             <FormField
               control={form.control}
               name="username"
-              className="w-full"
               render={({ field }) => (
                 <FormItem className='w-full'>
                   <FormControl>
                     <Input
                       {...field}
-                      label="Usuário"
                       placeholder="Usuário"
                       className="username"
                     />
@@ -125,7 +123,6 @@ const LoginContent: NextPage = () => {
                 <FormItem className='w-full'>
                   <FormControl>
                     <Input
-                      label="Senha"
                       placeholder="Senha"
                       className='password'
                       type="password"

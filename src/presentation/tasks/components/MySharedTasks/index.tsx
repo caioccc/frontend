@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"; // Enables client-side rendering for this component
 
 // Import necessary hooks and types from React
@@ -35,7 +36,7 @@ import { deleteSharedTask, getSharedTasks, searchSharedTasks, updateSharedTask }
 // Define a TypeScript interface for task data
 
 const SharedTaskList = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [nextPageUrl, setNextPage] = useState("");
   const [previousPageUrl, setPreviousPage] = useState("");
